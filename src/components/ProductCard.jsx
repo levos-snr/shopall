@@ -1,5 +1,6 @@
+
 import { Button } from "./ui/button";
-import { HeartIcon } from "lucide-react"; // Import HeartIcon from lucid-icons
+import { HeartIcon } from "lucide-react"; 
 
 const ProductCard = ({ product }) => {
   return (
@@ -81,4 +82,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
+
+
 export default ProductCard;
+
