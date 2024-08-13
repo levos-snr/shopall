@@ -6,7 +6,6 @@ import { Button } from "../components/ui/button";
 const Products = () => {
   const { products, loading } = FetchProducts();
 
-  // Check if products is an array before slicing
   const slicedProducts = Array.isArray(products) ? products.slice(0, 8) : [];
 
   if (loading) {
@@ -21,9 +20,11 @@ const Products = () => {
       <Button className="text-3xl font-bold mb-6 rounded-full m-2 bg-[#77794E] border-2 border-red-200 hover:bg-[#877956] ">
         WHATS TRENDING
       </Button>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6  p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         {slicedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <div key={product.id}>
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </div>
