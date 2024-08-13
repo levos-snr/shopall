@@ -1,0 +1,23 @@
+node_modules
+public
+build
+dist
+
+# Compiled & generated output
+/*/dist/
+
+# Cache
+/.cache
+
+# Yarn
+/.yarn
+/.pnp.*
+/.bun.*
+
+
+# TypeScript
+/tsconfig.base.json
+
+# Misc
+/.husky
+*.hbs
