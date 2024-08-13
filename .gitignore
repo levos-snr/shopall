@@ -32,3 +32,4 @@ dist-ssr
 # cache files
 .cache
 .eslintcache
+bun*

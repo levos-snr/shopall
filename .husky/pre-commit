@@ -1,3 +1,8 @@
 bunx lint-staged
 bun format
 bun lint
+
+
+npm run lint-staged
+npm run format
+npm run lint
