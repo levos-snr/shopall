@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,11 +14,27 @@ const Login = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  console.log(formData);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    const { username, password } = formData;
+
+    // Retrieve users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if the user exists
+    const user = users.find(
+      (u) => u.username === username && u.password === password
+    );
+
+    if (user) {
+      // Store user session in sessionStorage
+      sessionStorage.setItem("currentUser", JSON.stringify(user));
+
+      toast.success("Login successful!");
+      navigate("/"); 
+    } else {
+      toast.error("Invalid username or password. Please try again.");
+    }
   };
 
   return (

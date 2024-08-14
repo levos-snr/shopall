@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "format": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
@@ -33,6 +34,7 @@
     "daisyui": "^4.12.10",
     "globals": "^15.8.0",
     "install": "^0.13.0",
+    "json-server": "^1.0.0-beta.1",
     "license-checker": "^25.0.1",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
