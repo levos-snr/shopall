@@ -20,8 +20,6 @@ const Navbar = () => {
     setUser(null);
     navigate("/login");
   };
-  
-    
 
   return (
     <nav className="bg-white flex justify-between items-center p-6 shadow-lg mb-10">
@@ -55,8 +53,8 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                <li><NavLink to="/profile">Profile</NavLink></li>
-                 <li><NavLink to="/settings">Settings</NavLink></li>
+                  <li><NavLink to="/profile">Profile</NavLink></li>
+                  <li><NavLink to="/settings">Settings</NavLink></li>
                 </>
               )}
               <li><button onClick={handleLogout} className="text-red-500">Logout</button></li>

@@ -1,23 +1,10 @@
 {
   "users": [
     {
-      "id": "dcde",
+      "id": "19151600ea1",
       "username": "lewisodero",
       "email": "lewisodero27@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "6acf",
-      "username": "lewisodero",
-      "email": "lewisodero27@gmail.com",
-      "password": "123456",
-      "role": "customer"
-    },
-    {
-      "id": "e1b3",
-      "username": "lewiso",
-      "email": "lewisodero28@gmail.com",
-      "password": "123456",
+      "password": "12345",
       "role": "admin"
     }
   ]

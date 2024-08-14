@@ -31,7 +31,8 @@ const Login = () => {
       sessionStorage.setItem("currentUser", JSON.stringify(user));
 
       toast.success("Login successful!");
-      navigate("/"); 
+      navigate("/");
+      window.location.reload(); // Reload to apply role-based UI changes
     } else {
       toast.error("Invalid username or password. Please try again.");
     }

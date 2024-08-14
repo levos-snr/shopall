@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { username, email, password, confirmPassword,role } = formData;
+    const { username, email, password, confirmPassword, role } = formData;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -42,7 +42,13 @@ const Register = () => {
     }
 
     // Save user to localStorage
-    const newUser = { username, email, password,role };
+    const newUser = { 
+      id: Date.now().toString(16),  
+      username, 
+      email, 
+      password, 
+      role 
+    };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
@@ -61,7 +67,7 @@ const Register = () => {
       }
 
       alert("Registration successful!");
-      navigate("/login"); // Redirect to login page after successful registration
+      navigate("/login");
     } catch (error) {
       console.error("Error adding user to the server:", error);
       alert("An error occurred while registering. Please try again.");
