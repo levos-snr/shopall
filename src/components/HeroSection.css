@@ -1,0 +1,33 @@
+body{
+    background-color: red;
+}
+.hero-section image {
+    margin: 100px 0 0 200px; 
+    width: 70% ;
+    height: 450px;
+    display: flex;
+    justify-content:center;
+    gap: 0px;
+    
+
+}
+.hero-section image{
+    width: 200%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+    justify-content:center;
+    transition: 0.5s;
+    
+
+    
+    
+}
+.hero-section :hover{
+width: 10%;
+
+
+}
+
+
+
