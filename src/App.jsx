@@ -7,10 +7,6 @@ const App = () => {
  return (
    <>
    <Navbar />
-   < HeroSection />
-    <Products/>
-   {/* services */}
-    <Footer />
    </>
   );
 };
