@@ -1,24 +1,38 @@
-import { Heart, Search, ShoppingCart, UserRound } from 'lucide-react'
+import { Heart, Search, ShoppingCart, UserRound } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className='bg-gray-300'>
-      <h1 className='flex justify-start text-2xl md:font-bold'>SHOPALL</h1>
-      <ul className='flex justify-end italic text-xl'>
-        <li className='mr-4'>Products</li>
-        <li className='mr-4'>Categories</li>
-        <li className='mr-4'>Customers</li>
-        <li className='mr-4'>Orders</li>
-        <li className='mr-4'>Support</li>
-        <Search className='mr-4'/>
-        <Heart className='mr-4'/>
-        <ShoppingCart className='mr-4'/>
+    <nav className="bg-white flex justify-between p-8 items-center">
+      <NavLink
+        to="/"
+        className="flex justify-start items-center text-2xl md:font-bold"
+      >
+        SHOPALL
+      </NavLink>
+      <ul className="flex justify-end italic text-xl">
+        <NavLink to="/products" className="mr-4 cursor-pointer">
+          Products
+        </NavLink>
+        <NavLink to="/category" className="mr-4 cursor-pointer">
+          Categories
+        </NavLink>
+        <NavLink to="/customers" className="mr-4 cursor-pointer">
+          Customers
+        </NavLink>
+        <NavLink to="/orders" className="mr-4 cursor-pointer">
+          Orders
+        </NavLink>
+        <NavLink to="/support" className="mr-4 cursor-pointer">
+          Support
+        </NavLink>
+        <Search className="mr-4" />
+        <Heart className="mr-4" />
+        <ShoppingCart className="mr-4" />
         <UserRound />
       </ul>
     </nav>
   );
-
 };
 
 export default Navbar;
-

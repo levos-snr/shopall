@@ -1,35 +1,35 @@
-import Product from './pages/Product';
-import App from './App';
-import ErrorPage from './pages/ErrorPage';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import CategoryPage from './pages/CategoryPage';
+import Product from "./pages/Product";
+import App from "./App";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CategoryPage from "./pages/CategoryPage";
 
 const routers = [
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/category',
+        path: "/category",
         element: <CategoryPage />,
       },
       {
-        path: '/login',
+        path: "/login",
         element: <Login />,
       },
       {
-        path: '/register',
+        path: "/register",
         element: <Register />,
       },
       {
-        path: '/product/:id',
+        path: "/product/:id",
         element: <Product />,
       },
     ],
