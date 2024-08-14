@@ -1,8 +1,15 @@
-
 import { Button } from "./ui/button";
-import { HeartIcon } from "lucide-react"; 
+import { HeartIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate(`/product/${product.id}`, {
+      state: product,
+    });
+  };
   return (
     <div className="relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden ">
       {/* Discount Badge */}
@@ -74,15 +81,17 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Availability */}
-        <p className="text-gray-600 mt-2">
-          Availability: {product.availabilityStatus}
-        </p>
+        <div className="flex justify-between">
+          <p className="text-gray-600 mt-2">
+            Availability: {product.availabilityStatus}
+          </p>
+          <Button className="btn " to={"/category"} onClick={handleNavigation}>
+            View more
+          </Button>
+        </div>
       </div>
     </div>
   );
 };
 
-
-
 export default ProductCard;
-

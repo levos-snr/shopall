@@ -1,5 +1,10 @@
-import React from 'react';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '../components/ui/accordion';
+import React from "react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../components/ui/accordion";
 
 const Categories = () => {
   return (
@@ -22,6 +27,6 @@ const Categories = () => {
       </Accordion>
     </div>
   );
-}
+};
 
 export default Categories;
