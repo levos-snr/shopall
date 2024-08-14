@@ -1,29 +1,20 @@
 import FetchProducts from "../lib/FetchProducts";
-import "./HeroSection.css"
-
+import "./HeroSection.css";
 
 const HeroSection = () => {
   const { products, loading } = FetchProducts();
-  console.log(`${products}`)
-  const picture = products.map(pic => pic.thumbnail)
-  console.log(picture)
+  const picture = products.map((pic) => pic.thumbnail);
   const slicedPic = picture.slice(0, 11);
   return (
-
-    
     <div className="hero-section">
       <h1></h1>
       <div className="flex">
-      {
-        slicedPic.map(p =>
+        {slicedPic.map((p) => (
           <img src={p} alt="product" />
-        )
-      }
+        ))}
       </div>
-     
     </div>
   );
 };
 
 export default HeroSection;
-
