@@ -3,18 +3,19 @@ import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError();
-  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-dark text-gray-800 dark:text-light p-4">
       <div className="text-center">
-        <p className="text-9xl font-bold text-red-500 dark:text-red-600">{error.statusCode || "404"}</p>
-        <h1 className="text-2xl font-semibold mt-4">Whoops! {"  "}
-        <span className="text-gray-500">
+        <p className="text-9xl font-bold text-red-500 dark:text-red-600">
+          {error.statusCode || "404"}
+        </p>
+        <h1 className="text-2xl font-semibold mt-4">
+          Whoops! {"  "}
+          <span className="text-gray-500">
             <i>{error.statusText || error.message}</i>
-        </span>
-
-          </h1>
+          </span>
+        </h1>
 
         <p className="mt-2 text-lg">
           The page you are looking for was not found.

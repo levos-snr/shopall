@@ -6,20 +6,18 @@ import Products from "./components/Products";
 import ProductTestimonials from "./components/ProductTestimonials";
 import OurServices from "./components/OurServices";
 import SummerDiscount from "./components/SummerDiscount";
-import FashionArticles from "./components/FashionArticles"; 
-import { Outlet } from 'react-router-dom';
-
+import FashionArticles from "./components/FashionArticles";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-
   return (
     <div className="container mx-auto p-6">
-    <header>
-      <Navbar />
-    </header>
-    <main>
-      <Outlet />
-    </main>
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );

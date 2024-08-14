@@ -6,10 +6,19 @@ const OurServices = () => {
     <div className="flex flex-col justify-center bg-white p-8 rounded-lg shadow-lg text-center">
       <h3 className="text-3xl font-bold text-gray-800 mb-8">Our Services</h3>
       <div className="space-y-4">
-        <ServiceItem icon={Truck} text="Worldwide Delivery For Order Over $100" />
+        <ServiceItem
+          icon={Truck}
+          text="Worldwide Delivery For Order Over $100"
+        />
         <ServiceItem icon={Clock} text="Next Day Delivery UK Orders Only" />
-        <ServiceItem icon={Phone} text="Best Online Support Hours: 8AM - 11PM" />
-        <ServiceItem icon={RefreshCcw} text="Return Policy Easy & Free Return" />
+        <ServiceItem
+          icon={Phone}
+          text="Best Online Support Hours: 8AM - 11PM"
+        />
+        <ServiceItem
+          icon={RefreshCcw}
+          text="Return Policy Easy & Free Return"
+        />
         <ServiceItem icon={Percent} text="30% Money Back For Order Over $100" />
       </div>
     </div>

@@ -1,14 +1,11 @@
-import React from 'react';
-import Categories from '../components/Categories';
-import NewArrivals from '../components/NewArrivals';
-import Trending from '../components/Trending';
-import TopRated from '../components/TopRated';
-import BestSellers from '../components/BestSellers';
-import SpecialOffers from '../components/SpecialOffers';
-import NewProducts from '../components/NewProducts';
-
-
-
+import React from "react";
+import Categories from "../components/Categories";
+import NewArrivals from "../components/NewArrivals";
+import Trending from "../components/Trending";
+import TopRated from "../components/TopRated";
+import BestSellers from "../components/BestSellers";
+import SpecialOffers from "../components/SpecialOffers";
+import NewProducts from "../components/NewProducts";
 
 const CategoryPage = () => {
   return (
@@ -28,6 +25,6 @@ const CategoryPage = () => {
       </main>
     </div>
   );
-}
+};
 
 export default CategoryPage;
