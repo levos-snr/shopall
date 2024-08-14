@@ -9,7 +9,8 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "admin",
+    role: "customer",
+    cart: [],
   });
 
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { username, email, password, confirmPassword, role } = formData;
+    const { username, email, password, confirmPassword, role,cart } = formData;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -43,11 +44,12 @@ const Register = () => {
 
     // Save user to localStorage
     const newUser = { 
-      id: Date.now().toString(16),  
+      id: Date.now().toString(), 
       username, 
       email, 
       password, 
-      role 
+      role ,
+      cart
     };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));

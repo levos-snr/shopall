@@ -1,17 +1,24 @@
 import { Button } from "./ui/button";
-import { HeartIcon } from "lucide-react";
+import { HeartIcon, ShoppingCartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const handleNavigation = () => {
     navigate(`/product/${product.id}`, {
       state: product,
     });
   };
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
-    <div className="relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden ">
+    <div className="relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden">
       {/* Discount Badge */}
       <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold py-1 px-3 rounded-br-lg z-10">
         {product.discountPercentage}% OFF
@@ -19,7 +26,7 @@ const ProductCard = ({ product }) => {
 
       {/* Heart Icon */}
       <div className="absolute top-2 right-2 z-10">
-        <Button className="text-black  focus:outline-none bg-white hover:bg-white hover:text-red-600">
+        <Button className="text-black focus:outline-none bg-white hover:bg-white hover:text-red-600">
           <HeartIcon className="w-6 h-6" />
         </Button>
       </div>
@@ -32,8 +39,11 @@ const ProductCard = ({ product }) => {
           alt={product.title}
         />
         {/* Add to Cart Button (Visible on Hover) */}
-        <Button className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-none">
-          Add to Cart
+        <Button
+          onClick={handleAddToCart}
+          className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-none"
+        >
+          <ShoppingCartIcon className="w-6 h-6" /> Add to Cart
         </Button>
       </div>
 
@@ -85,7 +95,7 @@ const ProductCard = ({ product }) => {
           <p className="text-gray-600 mt-2">
             Availability: {product.availabilityStatus}
           </p>
-          <Button className="btn " to={"/category"} onClick={handleNavigation}>
+          <Button className="btn" onClick={handleNavigation}>
             View more
           </Button>
         </div>

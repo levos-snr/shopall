@@ -23,7 +23,6 @@ const Categories = () => {
           <AccordionTrigger>Footwear</AccordionTrigger>
           <AccordionContent>List of footwear categories...</AccordionContent>
         </AccordionItem>
-        {/* Add more categories here */}
       </Accordion>
     </div>
   );
