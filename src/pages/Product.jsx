@@ -1,33 +1,18 @@
+import FetchProducts from "../lib/FetchProducts";
 
-import { Button } from "./ui/button";
-import { HeartIcon } from "lucide-react"; 
-
-const ProductCard = ({ product }) => {
+const Product = () => {
+  const { product } = FetchProducts();
   return (
-    <div className="relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden ">
-      {/* Discount Badge */}
-      <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold py-1 px-3 rounded-br-lg z-10">
-        {product.discountPercentage}% OFF
-      </div>
-
-      {/* Heart Icon */}
-      <div className="absolute top-2 right-2 z-10">
-        <Button className="text-black  focus:outline-none bg-white hover:bg-white hover:text-red-600">
-          <HeartIcon className="w-6 h-6" />
-        </Button>
-      </div>
-
-      {/* Product Image and Add to Cart Button */}
-      <div className="relative group">
+    <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="relative">
         <img
-          className="w-full h-48 object-cover"
-          src={product.thumbnail}
+          src={product.image}
           alt={product.title}
+          className="w-full h-64 object-cover rounded-lg"
         />
-        {/* Add to Cart Button (Visible on Hover) */}
-        <Button className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-none">
-          Add to Cart
-        </Button>
+        <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded-full">
+          {product.category}
+        </div>
       </div>
 
       <div className="p-6">
@@ -80,9 +65,6 @@ const ProductCard = ({ product }) => {
       </div>
     </div>
   );
-};
+}
 
-
-
-export default ProductCard;
-
+export default Product;
