@@ -8,7 +8,7 @@ const FetchProducts = () => {
     fetch("https://dummyjson.com/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products); // Access the products array correctly
+        setProducts(data.products); 
         setLoading(false);
       })
       .catch((error) => {
