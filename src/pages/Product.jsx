@@ -1,19 +1,22 @@
 import { Button } from "../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { useCart } from '../context/CartContext'; // Assuming you have a cart context
+import { useCart } from '../context/CartContext'; 
+import { toast } from 'react-toastify';
+
 
 const Product = () => {
   const data = useLocation().state;
-  const { addToCart } = useCart(); // use the addToCart function from the context
-
+  const { addToCart } = useCart(); 
+  
   const handleAddToCart = () => {
     addToCart({
       id: data.id,
       title: data.title,
       price: data.price,
-      quantity: 1, // You can make this dynamic if necessary
+      quantity: 1, 
       image: data.images[0]
     });
+    toast.success('Product added to cart');
   };
 
   return (

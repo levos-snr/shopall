@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { Button } from '../components/ui/button';
 import PurchaseConfirmationModal from '../components/PurchaseConfirmationModal';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, totalAmount, setCart } = useCart();
@@ -10,20 +11,18 @@ const Cart = () => {
   
  
    useEffect(() => {
-     // Fetch user from sessionStorage
      const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
      if (storedUser) {
        setUser(storedUser);
      }
    }, []);
    
-   console.log('User saved to session:', user);
    
    const getExpectedDeliveryDate = () => {
      const currentDate = new Date();
      const deliveryDate = new Date(currentDate);
-     deliveryDate.setDate(currentDate.getDate() + 5); // Assuming a 5-day delivery period
-     return deliveryDate.toLocaleDateString(); // Format the date as a string
+     deliveryDate.setDate(currentDate.getDate() + 5);
+     return deliveryDate.toLocaleDateString();
    };
 
   const handleQuantityChange = (id, event) => {
@@ -33,12 +32,13 @@ const Cart = () => {
 
   const handlePurchaseClick = () => {
     setIsModalOpen(true); 
+    toast.success('Purchase confirmation modal opened');
   };
 
   const handleConfirm = () => {
    
      if (!user) {
-      console.error("User details are missing.");
+        toast.error('Please log in to make a purchase');
       return;
      }
 
@@ -49,14 +49,14 @@ const Cart = () => {
      deliveryDate: getExpectedDeliveryDate(),
     };
 
-    // Save order to localStorage
+
     const orders = JSON.parse(localStorage.getItem("orders")) || [];
     orders.push(order);
     localStorage.setItem("orders", JSON.stringify(orders));
-    console.log(orders)
+    
 
-    // Clear cart
-    setCart([]); // Ensure this updates the cart in the context
+  
+    setCart([]); 
 
     // Redirect to Order Tracking page
     window.location.href = "/orders";

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
+import { toast } from "react-toastify";
 
 const Categories = () => {
    const [user, setUser] = useState(null);
@@ -7,14 +8,12 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState("");
   
   
-  // Fetch categories from the API on component mount
   useEffect(() => {
     fetchCategories();
   }, []);
   
 
   useEffect(() => {
-      // Fetch user from sessionStorage
       const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
       if (storedUser) {
         setUser(storedUser);
@@ -39,8 +38,7 @@ const Categories = () => {
       },
       body: JSON.stringify({ name: newCategory }),
     });
-
-   
+    toast.success("Category added successfully!");
     setNewCategory("");
     fetchCategories();
   };
