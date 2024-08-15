@@ -1,6 +1,10 @@
+
 import React, { createContext, useState, useContext, useEffect } from "react";
 
+
 const WishlistContext = createContext();
+
+
 
 export const useWishlist = () => {
   return useContext(WishlistContext);
@@ -8,6 +12,7 @@ export const useWishlist = () => {
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(() => {
+
     const savedWishlist = localStorage.getItem("wishlist");
     return savedWishlist ? JSON.parse(savedWishlist) : [];
   });
@@ -27,9 +32,7 @@ export const WishlistProvider = ({ children }) => {
   };
 
   return (
-    <WishlistContext.Provider
-      value={{ wishlist, addToWishlist, removeFromWishlist }}
-    >
+    <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist }}>
       {children}
     </WishlistContext.Provider>
   );
