@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaBell, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; // Adjust the import path as needed
+import { useCart } from '../context/CartContext'; 
+import { useWishlist } from '../context/WishlistContext';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { cartCount } = useCart(); // Get cart count
+  const { cartCount } = useCart(); 
+   const { wishlist } = useWishlist();
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
   const dropdownRef = useRef(null); // Ref to track the dropdown element
@@ -49,12 +52,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white flex justify-between items-center p-6 shadow-lg mb-10">
+    <nav className="flex justify-between items-center p-6  mb-10">
       <NavLink to="/" className="text-2xl font-bold tracking-wide text-gray-800">
         SHOPALL
       </NavLink>
 
-      <ul className="flex space-x-6 text-lg font-medium text-gray-600">
+      <ul className="flex space-x-6 text-lg font-semibold text-gray-600">
         <NavLink to="/products" className="hover:text-gray-800">Products</NavLink>
         <NavLink to="/category" className="hover:text-gray-800">Categories</NavLink>
         <NavLink to="/support" className="hover:text-gray-800">Support</NavLink>
@@ -63,7 +66,20 @@ const Navbar = () => {
       <div className="flex items-center space-x-4">
         <button><FaSearch className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
         <button><FaBell className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
-        <NavLink to="/wishlist"><FaHeart className="text-gray-600 hover:text-gray-800 h-5 w-5" /></NavLink>
+        
+          <div>
+            {/* Wishlist Icon */}
+                    <NavLink to="/wishlist">
+                      <button className="relative">
+                        <FaHeart className="text-gray-600 hover:text-gray-800 h-5 w-5" />
+                        {wishlist.length > 0 && (
+                          <span className="absolute -top-1 right-0 inline-block w-4 h-4 bg-red-500 text-white text-xs font-bold text-center rounded-full">
+                            {wishlist.length}
+                          </span>
+                        )}
+                      </button>
+                    </NavLink>
+        </div>
 
         <div className="relative">
           <NavLink to="/cart">

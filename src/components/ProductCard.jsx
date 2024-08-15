@@ -2,10 +2,12 @@ import { Button } from "./ui/button";
 import { HeartIcon, ShoppingCartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext"; // Import Wishlist context
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist(); // Use wishlist context
 
   const handleNavigation = () => {
     navigate(`/product/${product.id}`, {
@@ -17,6 +19,16 @@ const ProductCard = ({ product }) => {
     addToCart(product);
   };
 
+  const isInWishlist = wishlist.some((item) => item.id === product.id);
+
+  const handleWishlistClick = () => {
+    if (isInWishlist) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
   return (
     <div className="relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden">
       {/* Discount Badge */}
@@ -26,7 +38,12 @@ const ProductCard = ({ product }) => {
 
       {/* Heart Icon */}
       <div className="absolute top-2 right-2 z-10">
-        <Button className="text-black focus:outline-none bg-white hover:bg-white hover:text-red-600">
+        <Button
+          onClick={handleWishlistClick}
+          className={`text-black focus:outline-none bg-white hover:bg-white ${
+            isInWishlist ? "text-red-600" : "hover:text-red-600"
+          }`}
+        >
           <HeartIcon className="w-6 h-6" />
         </Button>
       </div>
@@ -61,9 +78,7 @@ const ProductCard = ({ product }) => {
           </span>
           <span className="text-sm line-through text-gray-500">
             Ksh.{" "}
-            {(product.price / (1 - product.discountPercentage / 100)).toFixed(
-              2,
-            )}
+            {(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
           </span>
         </div>
 
