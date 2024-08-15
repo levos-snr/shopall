@@ -3,6 +3,7 @@ import { FaSearch, FaBell, FaUser, FaShoppingCart, FaHeart } from 'react-icons/f
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext'; 
 import { useWishlist } from '../context/WishlistContext';
+import {toast} from 'react-toastify';
 
 
 const Navbar = () => {
@@ -10,17 +11,16 @@ const Navbar = () => {
   const { cartCount } = useCart(); 
    const { wishlist } = useWishlist();
   const [user, setUser] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
-  const dropdownRef = useRef(null); // Ref to track the dropdown element
+  const [dropdownOpen, setDropdownOpen] = useState(false); 
+  const dropdownRef = useRef(null); 
 
   useEffect(() => {
-    // Fetch user from sessionStorage
     const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (storedUser) {
       setUser(storedUser);
     }
 
-    // Close dropdown if clicked outside
+    // close dropdown if clicked outside
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
@@ -35,10 +35,9 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // Clear user data from sessionStorage
     sessionStorage.removeItem('currentUser');
-    // Optionally clear cart or other user-specific data
     localStorage.removeItem("cart");
+    toast.success('Logged out successfully!');
     setUser(null);
     navigate('/login');
   };
@@ -48,7 +47,7 @@ const Navbar = () => {
   };
 
   const handleOptionClick = () => {
-    setDropdownOpen(false); // Close dropdown on option click
+    setDropdownOpen(false);
   };
 
   return (

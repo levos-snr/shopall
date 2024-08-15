@@ -1,23 +1,26 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react";
 
-// Create Wishlist Context
 const WishlistContext = createContext();
 
-// Custom hook to use the Wishlist context
+
+import React, { createContext, useState, useContext, useEffect } from "react";
+
+const WishlistContext = createContext();
+
 export const useWishlist = () => {
   return useContext(WishlistContext);
 };
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(() => {
-    // Retrieve wishlist from local storage on initial load
+
     const savedWishlist = localStorage.getItem("wishlist");
     return savedWishlist ? JSON.parse(savedWishlist) : [];
   });
 
   useEffect(() => {
-    // Save wishlist to local storage whenever it changes
+
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
 
@@ -32,7 +35,11 @@ export const WishlistProvider = ({ children }) => {
   };
 
   return (
+
     <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist }}>
+    <WishlistContext.Provider
+      value={{ wishlist, addToWishlist, removeFromWishlist }}
+    >
       {children}
     </WishlistContext.Provider>
   );

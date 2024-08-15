@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 
 const Customers = () => {
   const [users, setUsers] = useState([]);
@@ -23,10 +24,12 @@ const Customers = () => {
       method: "DELETE",
     });
     fetchUsers();
+    toast.success("User deleted successfully!");
   };
 
   const handleEdit = (user) => {
     setEditingUser(user);
+    toast.info("You are now editing the user!");
   };
 
   const handleUpdate = async (e) => {
@@ -40,6 +43,7 @@ const Customers = () => {
     });
     setEditingUser(null);
     fetchUsers();
+    toast.success("User updated successfully!");
   };
 
   const handleAdminToggle = async (user) => {
@@ -54,6 +58,7 @@ const Customers = () => {
       }),
     });
     fetchUsers();
+    toast.success("User role updated successfully!");
   };
 
   return (
