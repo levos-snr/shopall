@@ -146,7 +146,7 @@ const Customers = () => {
                   }
                   className="w-full mt-1 p-3 border border-gray-300 rounded-lg"
                 >
-                  <option value="user">User</option>
+                  <option value="user">Customer</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>

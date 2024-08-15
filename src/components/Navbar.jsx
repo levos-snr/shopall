@@ -107,6 +107,9 @@ const Navbar = () => {
                       <li onClick={handleOptionClick}>
                         <NavLink to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</NavLink>
                       </li>
+                        <li onClick={handleOptionClick}>
+                          <NavLink to="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</NavLink>
+                        </li>
                     </>
                   )}
                   <li onClick={handleLogout} className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100">

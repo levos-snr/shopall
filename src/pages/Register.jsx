@@ -9,7 +9,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "customer",
+    role: "admin",
     cart: [],
   });
 

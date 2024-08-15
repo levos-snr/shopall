@@ -7,13 +7,12 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState("");
   
   
-
   // Fetch categories from the API on component mount
   useEffect(() => {
     fetchCategories();
   }, []);
   
-  
+
   useEffect(() => {
       // Fetch user from sessionStorage
       const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -41,7 +40,7 @@ const Categories = () => {
       body: JSON.stringify({ name: newCategory }),
     });
 
-    // Clear input and refresh category list
+   
     setNewCategory("");
     fetchCategories();
   };

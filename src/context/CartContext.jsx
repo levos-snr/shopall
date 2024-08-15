@@ -26,9 +26,7 @@ export const CartProvider = ({ children }) => {
     if (user) {
       axios.patch(`http://localhost:3001/users/${user.id}`, { cart })
         .then(response => console.log('Cart saved successfully', response.data))
-        .catch(error => {
-          console.error('Failed to save cart', error);
-        });
+        .catch(error => console.error('Failed to save cart', error));
     } else {
       localStorage.setItem('cart', JSON.stringify(cart));
     }
@@ -64,7 +62,7 @@ export const CartProvider = ({ children }) => {
   const totalAmount = cart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, cartCount, totalAmount, setUser }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, cartCount, totalAmount, setCart, setUser }}>
       {children}
     </CartContext.Provider>
   );
