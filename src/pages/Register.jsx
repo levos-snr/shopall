@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Register = () => {
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -38,7 +39,7 @@ const Register = () => {
     );
 
     if (userExists) {
-      alert("User with this email or username already exists!");
+      toast.error("User with this email or username already exists!");
       return;
     }
 
@@ -68,11 +69,10 @@ const Register = () => {
         throw new Error("Failed to add user to the server.");
       }
 
-      alert("Registration successful!");
+      toast.success("Registration successful!");
       navigate("/login");
     } catch (error) {
-      console.error("Error adding user to the server:", error);
-      alert("An error occurred while registering. Please try again.");
+      toast.error("An error occurred while registering. Please try again.");
     }
   };
 

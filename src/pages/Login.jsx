@@ -29,7 +29,6 @@ const Login = () => {
     if (user) {
       // Store user session in sessionStorage
       sessionStorage.setItem("currentUser", JSON.stringify(user));
-
       toast.success("Login successful!");
       navigate("/");
       window.location.reload(); // Reload to apply role-based UI changes
