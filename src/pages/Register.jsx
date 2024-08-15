@@ -24,16 +24,13 @@ const Register = () => {
 
     const { username, email, password, confirmPassword, role,cart } = formData;
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
 
-    // Get existing users from localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Check if user already exists
     const userExists = users.some(
       (user) => user.email === email || user.username === username
     );
@@ -43,7 +40,6 @@ const Register = () => {
       return;
     }
 
-    // Save user to localStorage
     const newUser = { 
       id: Date.now().toString(), 
       username, 
@@ -55,7 +51,6 @@ const Register = () => {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    // Make a POST request to the backend API to add the user
     try {
       const response = await fetch("http://localhost:3001/users", {
         method: "POST",

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import PurchaseConfirmationModal from '../components/PurchaseConfirmationModal';
+import { toast } from "react-toastify";
 
 const ConfirmPayment = () => {
   const { cart, totalAmount, setCart } = useCart();
@@ -9,7 +10,7 @@ const ConfirmPayment = () => {
   const handleConfirm = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      console.error("User details are missing.");
+      toast.error("User details are missing.");
       return;
     }
   
@@ -27,10 +28,9 @@ const ConfirmPayment = () => {
   
     // Clear cart
     console.log('Clearing cart...');
-    setCart([]); // This should update the cart in the context
+    setCart([]); 
   
-    // Redirect to Order Tracking page
-    console.log('Redirecting to /orders');
+    toast.success("Order placed successfully!");
     window.location.href = "/orders";
   };
 
