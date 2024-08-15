@@ -11,6 +11,9 @@ import Customers from "./pages/Customers";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import OrderTrackingPage from "./pages/OrderTrackingPage";
+import WishlistPage from "./pages/WishlistPage";
+import ProductPage from "./pages/ProductPage";
+
 
 const routers = [
   {
@@ -31,6 +34,10 @@ const routers = [
         element: <AddProduct />,
       },
       {
+              path: "/wishlist",
+              element: <WishlistPage />,
+         },
+      {
         path: "/customers",
         element: <Customers />,
       },
@@ -49,6 +56,10 @@ const routers = [
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/products",
+        element: <ProductPage />,
       },
       {
         path: "/register",
