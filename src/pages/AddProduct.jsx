@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -23,15 +25,23 @@ const AddProduct = () => {
   }, []);
 
   const fetchProducts = async () => {
-    const response = await fetch("http://localhost:3001/products");
-    const data = await response.json();
-    setProducts(data);
+    try {
+      const response = await fetch("http://localhost:3001/products");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      toast.error("Error fetching products!");
+    }
   };
 
   const fetchCategories = async () => {
-    const response = await fetch("http://localhost:3001/categories");
-    const data = await response.json();
-    setCategories(data);
+    try {
+      const response = await fetch("http://localhost:3001/categories");
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      toast.error("Error fetching categories!");
+    }
   };
 
   const handleChange = (e) => {
@@ -45,28 +55,34 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      await fetch(`http://localhost:3001/products/${editProductId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      setIsEditing(false);
-      setEditProductId(null);
-    } else {
-      await fetch("http://localhost:3001/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-    }
+    try {
+      if (isEditing) {
+        await fetch(`http://localhost:3001/products/${editProductId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        toast.success("Product updated successfully!");
+        setIsEditing(false);
+        setEditProductId(null);
+      } else {
+        await fetch("http://localhost:3001/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        toast.success("Product added successfully!");
+      }
 
-    setFormData({ title: "", category: "", price: "", description: "", images: "" });
-    fetchProducts();
+      setFormData({ title: "", category: "", price: "", description: "", images: "" });
+      fetchProducts();
+    } catch (error) {
+      toast.error("Error submitting the product!");
+    }
   };
 
   const handleEdit = (product) => {
@@ -76,10 +92,15 @@ const AddProduct = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:3001/products/${id}`, {
-      method: "DELETE",
-    });
-    fetchProducts();
+    try {
+      await fetch(`http://localhost:3001/products/${id}`, {
+        method: "DELETE",
+      });
+      toast.success("Product deleted successfully!");
+      fetchProducts();
+    } catch (error) {
+      toast.error("Error deleting the product!");
+    }
   };
 
   const handleCancel = () => {
@@ -226,6 +247,9 @@ const AddProduct = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Toast container for notifications */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 };

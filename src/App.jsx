@@ -8,6 +8,8 @@ import OurServices from "./components/OurServices";
 import SummerDiscount from "./components/SummerDiscount";
 import FashionArticles from "./components/FashionArticles";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 const App = () => {
   return (
@@ -21,6 +23,7 @@ const App = () => {
         </main>
       </div>
       <Footer/>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </>
   );
 };

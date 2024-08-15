@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -23,26 +24,22 @@ const Register = () => {
 
     const { username, email, password, confirmPassword, role,cart } = formData;
 
-    // Check if passwords match
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
-    // Get existing users from localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Check if user already exists
     const userExists = users.some(
       (user) => user.email === email || user.username === username
     );
 
     if (userExists) {
-      alert("User with this email or username already exists!");
+      toast.error("User with this email or username already exists!");
       return;
     }
 
-    // Save user to localStorage
     const newUser = { 
       id: Date.now().toString(), 
       username, 
@@ -54,7 +51,6 @@ const Register = () => {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    // Make a POST request to the backend API to add the user
     try {
       const response = await fetch("http://localhost:3001/users", {
         method: "POST",
@@ -68,11 +64,10 @@ const Register = () => {
         throw new Error("Failed to add user to the server.");
       }
 
-      alert("Registration successful!");
+      toast.success("Registration successful!");
       navigate("/login");
     } catch (error) {
-      console.error("Error adding user to the server:", error);
-      alert("An error occurred while registering. Please try again.");
+      toast.error("An error occurred while registering. Please try again.");
     }
   };
 
