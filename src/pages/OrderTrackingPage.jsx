@@ -4,12 +4,12 @@ const OrderTrackingPage = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // Fetch orders from localStorage
+    // orders from localStorage
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     setOrders(savedOrders);
   }, []);
 
-  const progress = 60; // Percentage of order progress for example purposes
+  const progress = 60;
 
   return (
     <div className="container mx-auto p-6">

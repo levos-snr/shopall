@@ -6,7 +6,6 @@ const Footer = () => {
   return (
     <footer className="py-10 mt-16">
       <div className="container mx-auto px-4">
-        {/* Top Section with Icons and Text */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 text-center md:text-left p-10">
           <div className="flex flex-col items-center mb-8 md:mb-0">
             <Truck className="text-bold h-6 h-6" />

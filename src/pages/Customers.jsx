@@ -107,7 +107,7 @@ const Customers = () => {
         </table>
       </div>
 
-      {/* Edit User Modal */}
+      {/*User Modal */}
       {editingUser && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-white p-6 shadow-lg rounded-md">

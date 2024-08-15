@@ -6,7 +6,7 @@ const Trending = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  // Here, you could filter or sort based on certain criteria if needed.
+  //  filter or sort based on certain criteria 
   //might want to filter based on popularity, ratings, or other metrics.
   const trendingProducts = products.slice(4, 11);
 

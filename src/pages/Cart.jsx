@@ -10,7 +10,7 @@ const Cart = () => {
   
  
    useEffect(() => {
-     // Fetch user from sessionStorage
+     // user from sessionStorage
      const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
      if (storedUser) {
        setUser(storedUser);
@@ -22,8 +22,8 @@ const Cart = () => {
    const getExpectedDeliveryDate = () => {
      const currentDate = new Date();
      const deliveryDate = new Date(currentDate);
-     deliveryDate.setDate(currentDate.getDate() + 5); // Assuming a 5-day delivery period
-     return deliveryDate.toLocaleDateString(); // Format the date as a string
+     deliveryDate.setDate(currentDate.getDate() + 5); 
+     return deliveryDate.toLocaleDateString(); 
    };
 
   const handleQuantityChange = (id, event) => {
@@ -49,16 +49,16 @@ const Cart = () => {
      deliveryDate: getExpectedDeliveryDate(),
     };
 
-    // Save order to localStorage
+    // save order to localStorage
     const orders = JSON.parse(localStorage.getItem("orders")) || [];
     orders.push(order);
     localStorage.setItem("orders", JSON.stringify(orders));
     console.log(orders)
 
-    // Clear cart
-    setCart([]); // Ensure this updates the cart in the context
+    // clear cart
+    setCart([]); 
 
-    // Redirect to Order Tracking page
+    // redirect to Order Tracking page
     window.location.href = "/orders";
   };
 
@@ -97,7 +97,7 @@ const Cart = () => {
         </Button>
       )}
 
-      {/* Render the PurchaseConfirmationModal */}
+      {/* shown PurchaseConfirmationModal */}
       {isModalOpen && (
         <PurchaseConfirmationModal
           cart={cart}

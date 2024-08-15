@@ -20,16 +20,17 @@ const ConfirmPayment = () => {
       deliveryDate: getExpectedDeliveryDate(),
     };
   
-    // Save order to localStorage
+    // save order to localStorage
     const orders = JSON.parse(localStorage.getItem("orders")) || [];
     orders.push(order);
     localStorage.setItem("orders", JSON.stringify(orders));
   
-    // Clear cart
+    // clear cart
     console.log('Clearing cart...');
-    setCart([]); // This should update the cart in the context
+    // update the cart in the context
+    setCart([]); 
   
-    // Redirect to Order Tracking page
+    // take to Order Tracking page
     console.log('Redirecting to /orders');
     window.location.href = "/orders";
   };
@@ -38,7 +39,8 @@ const ConfirmPayment = () => {
   const getExpectedDeliveryDate = () => {
     const today = new Date();
     const deliveryDate = new Date(today);
-    deliveryDate.setDate(today.getDate() + 5); // Delivery in 5 days
+    // Delivery in 5 days
+    deliveryDate.setDate(today.getDate() + 5); 
     return deliveryDate.toDateString();
   };
 

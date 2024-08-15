@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import router from "./Routes";
-import { CartProvider } from "./context/CartContext"; // Import CartProvider
+import { CartProvider } from "./context/CartContext"; 
 
 const routers = createBrowserRouter(router);
 

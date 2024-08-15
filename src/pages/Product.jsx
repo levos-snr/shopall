@@ -1,24 +1,24 @@
 import { Button } from "../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { useCart } from '../context/CartContext'; // Assuming you have a cart context
+import { useCart } from '../context/CartContext'; 
 
 const Product = () => {
   const data = useLocation().state;
-  const { addToCart } = useCart(); // use the addToCart function from the context
+  const { addToCart } = useCart(); 
 
   const handleAddToCart = () => {
     addToCart({
       id: data.id,
       title: data.title,
       price: data.price,
-      quantity: 1, // You can make this dynamic if necessary
+      quantity: 1, 
       image: data.images[0]
     });
   };
 
   return (
     <div className="flex flex-col md:flex-row p-6 bg-white rounded-lg shadow-lg">
-      {/* Image Section */}
+    
       <div className="md:w-1/2">
         <img
           src={data.images[0]}
@@ -27,17 +27,17 @@ const Product = () => {
         />
       </div>
 
-      {/* Details Section */}
+      
       <div className="md:w-1/2 md:pl-6 mt-6 md:mt-0">
         {/* Breadcrumb */}
         <Link to={"/"} className="text-blue-600 text-sm mb-4 inline-block">
           ← Back to Home
         </Link>
 
-        {/* Product Title */}
+       
         <h2 className="text-3xl font-bold text-gray-800">{data.title}</h2>
 
-        {/* Rating */}
+       
         <div className="flex items-center mt-2">
           <span className="text-yellow-400 text-lg">⭐</span>
           <span className="ml-2 text-sm text-gray-600">
@@ -45,7 +45,7 @@ const Product = () => {
           </span>
         </div>
 
-        {/* Description */}
+      
         <p className="text-gray-600 mt-4">{data.description}</p>
 
         {/* Select Options */}
@@ -71,7 +71,7 @@ const Product = () => {
             </div>
           </div>
 
-          {/* Price */}
+         
           <div className="flex items-center justify-between mt-6">
             <span className="text-2xl font-bold text-gray-900">
               Ksh. {data.price}
@@ -85,7 +85,7 @@ const Product = () => {
           </div>
         </div>
 
-        {/* Additional Details */}
+        
         <div className="mt-8">
           <h4 className="text-lg font-semibold text-gray-800">What's Inside</h4>
           <p className="text-gray-600 mt-2">
@@ -110,7 +110,7 @@ const Product = () => {
           </p>
         </div>
 
-        {/* QR Code */}
+       
         <div className="mt-8">
           <h4 className="text-lg font-semibold text-gray-800">QR Code</h4>
           <img

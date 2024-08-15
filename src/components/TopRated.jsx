@@ -6,7 +6,7 @@ const TopRated = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  // Sort products by rating in descending order and pick the top 4
+  //sort products by rating in descending order and pick the top 4
   const topRatedProducts = products
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 6);

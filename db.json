@@ -1,14 +1,6 @@
 {
   "users": [
     {
-      "username": "odero",
-      "email": "lewisodero28@gmail.com",
-      "password": "123456789",
-      "id": "1915197aa66",
-      "cart": [],
-      "role": "customer"
-    },
-    {
       "id": "1723703559130",
       "username": "admin",
       "email": "admin@gmail.com",

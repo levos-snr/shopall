@@ -18,21 +18,21 @@ const Login = () => {
     e.preventDefault();
     const { username, password } = formData;
 
-    // Retrieve users from localStorage
+    // users from localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Check if the user exists
+    // check if the user exists
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
 
     if (user) {
-      // Store user session in sessionStorage
+      // store user session  sessionStorage
       sessionStorage.setItem("currentUser", JSON.stringify(user));
 
       toast.success("Login successful!");
       navigate("/");
-      window.location.reload(); // Reload to apply role-based UI changes
+      window.location.reload(); 
     } else {
       toast.error("Invalid username or password. Please try again.");
     }

@@ -23,7 +23,7 @@ const Profile = () => {
         .then(userData => {
           setUser(userData);
           setCart(userData.cart || []);
-          // Set additional user data if needed
+         
         })
         .catch(error => console.error('Failed to fetch user data', error));
     }
@@ -165,7 +165,7 @@ const Profile = () => {
                 <p>Price: ${item.price}</p>
                 <button
                   className="bg-red-600 dark:bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 dark:hover:bg-red-400"
-                  onClick={() => /* handle remove from saved items */ {}}
+                  onClick={() => /*  remove from saved items */ {}}
                 >
                   Remove
                 </button>
@@ -199,7 +199,7 @@ const Profile = () => {
           </ul>
         </section>
 
-        {/* Pending Reviews Section */}
+        {/* pending Reviews Section */}
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Pending Reviews</h2>
           <ul className="space-y-4">

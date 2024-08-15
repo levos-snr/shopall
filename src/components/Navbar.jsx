@@ -5,19 +5,20 @@ import { useCart } from '../context/CartContext'; // Adjust the import path as n
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { cartCount } = useCart(); // Get cart count
+  // Get cart count
+  const { cartCount } = useCart(); 
   const [user, setUser] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
-  const dropdownRef = useRef(null); // Ref to track the dropdown element
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null); 
 
   useEffect(() => {
-    // Fetch user from sessionStorage
+    // user from sessionStorage
     const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (storedUser) {
       setUser(storedUser);
     }
 
-    // Close dropdown if clicked outside
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
   };
 
   const handleOptionClick = () => {
-    setDropdownOpen(false); // Close dropdown on option click
+    setDropdownOpen(false);
   };
 
   return (

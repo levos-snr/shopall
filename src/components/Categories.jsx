@@ -7,14 +7,14 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState("");
   
   
-  // Fetch categories from the API on component mount
+  //  categories on component mount
   useEffect(() => {
     fetchCategories();
   }, []);
   
 
   useEffect(() => {
-      // Fetch user from sessionStorage
+      // get user from sessionStorage
       const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
       if (storedUser) {
         setUser(storedUser);
@@ -31,7 +31,7 @@ const Categories = () => {
   };
 
   const handleAddCategory = async () => {
-    // Add the new category to db.json via API
+    // Add new category 2 db.json
     await fetch("http://localhost:3001/categories", {
       method: "POST",
       headers: {
@@ -49,7 +49,7 @@ const Categories = () => {
     <div className="p-4 border rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Categories</h3>
       
-      {/* Accordion showing list of categories */}
+      {/* Accordion showing  categories */}
       <Accordion type="single" collapsible>
         {categories.map((category) => (
           <AccordionItem key={category.id} value={category.name}>
@@ -59,7 +59,7 @@ const Categories = () => {
         ))}
       </Accordion>
 
-      {/* Show the Add Category form only to admins */}
+      {/*  Add Category form only to admins */}
       {isAdmin && (
         <div className="mt-6 ">
           <h4 className="text-md font-semibold mb-2">Add New Category</h4>

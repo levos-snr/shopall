@@ -9,7 +9,7 @@ import FetchProducts from "../lib/FetchProducts";
 const Home = () => {
   const { products } = FetchProducts();
 
-  // Combine all reviews from all products into one array and slice to show only 3 reviews
+  //  all reviews from all products into one array and slice to show only 3 reviews
   const allReviews = products.flatMap((product) => product.reviews);
   const slicedReviews = allReviews.slice(0, 3);
   return (
