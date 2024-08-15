@@ -1,8 +1,20 @@
 import { Button } from "../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
+import { useCart } from '../context/CartContext'; // Assuming you have a cart context
 
 const Product = () => {
   const data = useLocation().state;
+  const { addToCart } = useCart(); // use the addToCart function from the context
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: data.id,
+      title: data.title,
+      price: data.price,
+      quantity: 1, // You can make this dynamic if necessary
+      image: data.images[0]
+    });
+  };
 
   return (
     <div className="flex flex-col md:flex-row p-6 bg-white rounded-lg shadow-lg">
@@ -64,7 +76,12 @@ const Product = () => {
             <span className="text-2xl font-bold text-gray-900">
               Ksh. {data.price}
             </span>
-            <Button className=" px-4 py-2 rounded-lg">Add to Cart</Button>
+            <Button 
+              className="px-4 py-2 rounded-lg"
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </Button>
           </div>
         </div>
 
