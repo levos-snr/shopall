@@ -11,15 +11,17 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="container mx-auto p-6">
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <div className="container mx-auto p-6">
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Outlet />
+        </main>
+      </div>
+      <Footer/>
+    </>
   );
 };
 
