@@ -1,27 +1,52 @@
-import { FaSearch, FaBell, FaUser, FaShoppingCart } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from 'react';
+import { FaSearch, FaBell, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext'; // Adjust the import path as needed
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { cartCount } = useCart(); // Get cart count
   const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
+  const dropdownRef = useRef(null); // Ref to track the dropdown element
 
   useEffect(() => {
     // Fetch user from sessionStorage
-    const storedUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (storedUser) {
       setUser(storedUser);
     }
+
+    // Close dropdown if clicked outside
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleLogout = () => {
     // Clear user data from sessionStorage
-    sessionStorage.removeItem("currentUser");
+    sessionStorage.removeItem('currentUser');
+    // Optionally clear cart or other user-specific data
+    localStorage.removeItem("cart");
     setUser(null);
-    navigate("/login");
+    navigate('/login');
   };
-  
-    
+
+  const toggleDropdown = () => {
+    setDropdownOpen(prevState => !prevState);
+  };
+
+  const handleOptionClick = () => {
+    setDropdownOpen(false); // Close dropdown on option click
+  };
 
   return (
     <nav className="bg-white flex justify-between items-center p-6 shadow-lg mb-10">
@@ -38,41 +63,72 @@ const Navbar = () => {
       <div className="flex items-center space-x-4">
         <button><FaSearch className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
         <button><FaBell className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
-        <button><FaShoppingCart className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
+        <NavLink to="/wishlist"><FaHeart className="text-gray-600 hover:text-gray-800 h-5 w-5" /></NavLink>
 
-        {user ? (
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} className="cursor-pointer">
-              <FaUser className="text-gray-600 hover:text-gray-800 h-5 w-5" />
-            </div>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
-              {user.role === "admin" ? (
+        <div className="relative">
+          <NavLink to="/cart">
+            <FaShoppingCart className="text-gray-600 hover:text-gray-800 h-5 w-5" />
+            {cartCount > 0 && (
+              <span className="absolute -top-3 right-1 bg-red-600 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </NavLink>
+        </div>
+
+        <div className="relative z-10" ref={dropdownRef}>
+          <div onClick={toggleDropdown} className="cursor-pointer flex items-center">
+            <FaUser className="text-gray-600 hover:text-gray-800 h-5 w-5" />
+          </div>
+          {dropdownOpen && (
+            <ul className="absolute right-0 mt-2 w-48 bg-white text-gray-900 shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
+              {user ? (
                 <>
-                  <li><NavLink to="/addproducts">Add Product</NavLink></li>
-                  <li><NavLink to="/orders">Manage Orders</NavLink></li>
-                  <li><NavLink to="/customers">Manage Customers</NavLink></li>
-                  <li><NavLink to="/settings">Settings</NavLink></li>
+                  {user.role === 'admin' ? (
+                    <>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/addproducts" className="block px-4 py-2 hover:bg-gray-100">Add Product</NavLink>
+                      </li>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/orders" className="block px-4 py-2 hover:bg-gray-100">Manage Orders</NavLink>
+                      </li>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/customers" className="block px-4 py-2 hover:bg-gray-100">Manage Customers</NavLink>
+                      </li>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</NavLink>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</NavLink>
+                      </li>
+                      <li onClick={handleOptionClick}>
+                        <NavLink to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</NavLink>
+                      </li>
+                        <li onClick={handleOptionClick}>
+                          <NavLink to="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</NavLink>
+                        </li>
+                    </>
+                  )}
+                  <li onClick={handleLogout} className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100">
+                    Logout
+                  </li>
                 </>
               ) : (
                 <>
-                <li><NavLink to="/profile">Profile</NavLink></li>
-                 <li><NavLink to="/settings">Settings</NavLink></li>
+                  <li onClick={handleOptionClick}>
+                    <NavLink to="/login" className="block px-4 py-2 hover:bg-gray-100">Login</NavLink>
+                  </li>
+                  <li onClick={handleOptionClick}>
+                    <NavLink to="/register" className="block px-4 py-2 hover:bg-gray-100">Register</NavLink>
+                  </li>
                 </>
               )}
-              <li><button onClick={handleLogout} className="text-red-500">Logout</button></li>
             </ul>
-          </div>
-        ) : (
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} className="cursor-pointer">
-              <FaUser className="text-gray-600 hover:text-gray-800 h-5 w-5" />
-            </div>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
-              <li><NavLink to="/login">Login</NavLink></li>
-              <li><NavLink to="/register">Register</NavLink></li>
-            </ul>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </nav>
   );

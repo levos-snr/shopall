@@ -1,24 +1,61 @@
 {
   "users": [
     {
-      "id": "dcde",
-      "username": "lewisodero",
-      "email": "lewisodero27@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "6acf",
-      "username": "lewisodero",
-      "email": "lewisodero27@gmail.com",
-      "password": "123456",
+      "username": "odero",
+      "email": "lewisodero28@gmail.com",
+      "password": "123456789",
+      "id": "1915197aa66",
+      "cart": [],
       "role": "customer"
     },
     {
-      "id": "e1b3",
-      "username": "lewiso",
-      "email": "lewisodero28@gmail.com",
-      "password": "123456",
-      "role": "admin"
+      "id": "1723703559130",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "role": "admin",
+      "cart": []
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "userId": 1723657846166,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2
+        }
+      ],
+      "status": "shipped"
+    }
+  ],
+  "products": [
+    {
+      "id": "5c7f",
+      "title": "Lipstick",
+      "category": "Clothing",
+      "price": "600",
+      "description": "For mouth",
+      "images": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Clothing"
+    },
+    {
+      "id": "2",
+      "name": "Electronics"
+    },
+    {
+      "id": "3",
+      "name": "Footwear"
+    },
+    {
+      "id": "4",
+      "name": "Home Goods"
     }
   ]
 }
