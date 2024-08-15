@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-gray-300 container mx-auto px-4 max-w-5xl">
+      <div className="text-gray-300 container mx-auto px-4 max-w-5xl p-4">
         {/* Middle Section with Address and Contact Info */}
         <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between">
           <div className="mb-8 md:mb-0">
@@ -117,7 +117,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
+        <div className="border-t border-gray-700 pt-8 mt-8  text-center text-gray-400">
           <p>&copy; 2024 Shopall. All rights reserved.</p>
         </div>
       </div>
