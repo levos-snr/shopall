@@ -21,7 +21,7 @@ const Profile = () => {
       (user) => user.id === loggedUser.id,
     );
     if (currentUser) {
-      fetch(`http://localhost:3001/users/${loggedUser.id}`)
+      fetch(`https://json-server-vercel-8mwp.vercel.app/users/${loggedUser.id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -39,7 +39,7 @@ const Profile = () => {
       password: e.target.password.value || user.password,
     };
 
-    fetch(`http://localhost:3001/users/${user.id}`, {
+    fetch(`https://json-server-vercel-8mwp.vercel.app/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = () => {
-    fetch(`http://localhost:3001/users/${user.id}`, {
+    fetch(`https://json-server-vercel-8mwp.vercel.app/users/${user.id}`, {
       method: "DELETE",
     })
       .then(() => {

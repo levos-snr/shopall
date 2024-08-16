@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Customers = () => {
   const [users, setUsers] = useState([]);
@@ -14,13 +15,13 @@ const Customers = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const response = await fetch("http://localhost:3001/users");
+    const response = await fetch("https://json-server-vercel-8mwp.vercel.app/users");
     const data = await response.json();
     setUsers(data);
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:3001/users/${id}`, {
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${id}`, {
       method: "DELETE",
     });
     fetchUsers();
@@ -34,12 +35,12 @@ const Customers = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:3001/users/${editingUser.id}`, {
+    const formData = new FormData();
+    Object.keys(editingUser).forEach(key => formData.append(key, editingUser[key]));
+    
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${editingUser.id}`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editingUser),
+      body: formData,
     });
     setEditingUser(null);
     fetchUsers();
@@ -47,7 +48,7 @@ const Customers = () => {
   };
 
   const handleAdminToggle = async (user) => {
-    await fetch(`http://localhost:3001/users/${user.id}`, {
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -70,6 +71,7 @@ const Customers = () => {
         <table className="table-auto w-full">
           <thead>
             <tr className="text-left">
+              <th className="py-4 px-6">Image</th>
               <th className="py-4 px-6">Name</th>
               <th className="py-4 px-6">Email</th>
               <th className="py-4 px-6">Role</th>
@@ -79,6 +81,19 @@ const Customers = () => {
           <tbody>
             {users.map((user) => (
               <tr key={user.id} className="border-t">
+                <td className="py-4 px-6">
+                  {user.image ? (
+                    <img
+                      src={user.image}
+                      alt={user.username}
+                      className="w-12 h-12 object-cover rounded-full"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-700">
+                      No Image
+                    </div>
+                  )}
+                </td>
                 <td className="py-4 px-6">{user.username}</td>
                 <td className="py-4 px-6">{user.email}</td>
                 <td className="py-4 px-6">{user.role}</td>
@@ -154,6 +169,21 @@ const Customers = () => {
                   <option value="user">Customer</option>
                   <option value="admin">Admin</option>
                 </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-lg font-semibold">Profile Image URL</label>
+                <input
+                  type="text"
+                  value={editingUser.image || ""}
+                  onChange={(e) =>
+                    setEditingUser({ ...editingUser, image: e.target.value })
+                  }
+                  className="w-full mt-1 p-3 border border-gray-300 rounded-lg"
+                  placeholder="Enter image URL or leave blank"
+                />
+                <p className="text-sm text-gray-500 mt-2">
+                  Enter the URL of the image you want to use. If left blank, the default placeholder will be used.
+                </p>
               </div>
               <div className="flex justify-end">
                 <button

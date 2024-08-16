@@ -26,7 +26,7 @@ const AddProduct = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3001/products");
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/products");
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -36,7 +36,7 @@ const AddProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:3001/categories");
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/categories");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -57,7 +57,7 @@ const AddProduct = () => {
 
     try {
       if (isEditing) {
-        await fetch(`http://localhost:3001/products/${editProductId}`, {
+        await fetch(`https://json-server-vercel-8mwp.vercel.app/products/${editProductId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const AddProduct = () => {
         setIsEditing(false);
         setEditProductId(null);
       } else {
-        await fetch("http://localhost:3001/products", {
+        await fetch("https://json-server-vercel-8mwp.vercel.app/products", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const AddProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:3001/products/${id}`, {
+      await fetch(`https://json-server-vercel-8mwp.vercel.app/products/${id}`, {
         method: "DELETE",
       });
       toast.success("Product deleted successfully!");
@@ -110,7 +110,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10">
+    <div className="max-w-4xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Manage Products</h2>
 
       <form
@@ -182,7 +182,7 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex flex-col sm:flex-row justify-between mt-4 space-y-2 sm:space-y-0">
           <button
             type="submit"
             className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition duration-200"
@@ -194,7 +194,7 @@ const AddProduct = () => {
             <button
               type="button"
               onClick={handleCancel}
-              className="ml-2 px-6 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200"
+              className="ml-0 sm:ml-2 px-6 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200"
             >
               Cancel
             </button>
@@ -205,50 +205,51 @@ const AddProduct = () => {
       <h3 className="text-2xl font-bold text-gray-800 mt-12 mb-6">Product List</h3>
 
       <div className="bg-white p-6 shadow-lg rounded-md">
-        <table className="table-auto w-full">
-          <thead>
-            <tr className="text-left">
-              <th className="py-4 px-6">Image</th>
-              <th className="py-4 px-6">Title</th>
-              <th className="py-4 px-6">Category</th>
-              <th className="py-4 px-6">Price (Ksh)</th>
-              <th className="py-4 px-6">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} className="border-t">
-                <td className="py-4 px-6">
-                  <img
-                    src={product.images}
-                    alt={product.title}
-                    className="w-20 h-20 object-cover rounded-md"
-                  />
-                </td>
-                <td className="py-4 px-6">{product.title}</td>
-                <td className="py-4 px-6">{product.category}</td>
-                <td className="py-4 px-6">{product.price}</td>
-                <td className="py-6 px-6 flex space-x-4 items-center justify-center">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-md hover:bg-yellow-600 transition duration-200"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="px-4 py-2 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition duration-200"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full">
+            <thead>
+              <tr className="text-left">
+                <th className="py-4 px-6">Image</th>
+                <th className="py-4 px-6">Title</th>
+                <th className="py-4 px-6">Category</th>
+                <th className="py-4 px-6">Price (Ksh)</th>
+                <th className="py-4 px-6">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id} className="border-t">
+                  <td className="py-4 px-6">
+                    <img
+                      src={product.images}
+                      alt={product.title}
+                      className="w-20 h-20 object-cover rounded-md"
+                    />
+                  </td>
+                  <td className="py-4 px-6">{product.title}</td>
+                  <td className="py-4 px-6">{product.category}</td>
+                  <td className="py-4 px-6">{product.price}</td>
+                  <td className="py-4 px-6 flex space-x-2 sm:space-x-4 items-center justify-center">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-md hover:bg-yellow-600 transition duration-200"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="px-4 py-2 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition duration-200"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Toast container for notifications */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );

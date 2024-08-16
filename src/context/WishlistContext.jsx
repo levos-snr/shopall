@@ -1,5 +1,6 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react";
+import {toast} from 'react-toastify';
 
 
 const WishlistContext = createContext();
@@ -24,11 +25,16 @@ export const WishlistProvider = ({ children }) => {
   const addToWishlist = (product) => {
     if (!wishlist.some((item) => item.id === product.id)) {
       setWishlist([...wishlist, product]);
+      toast.success('Product added to wishlist');
+    }
+    else{
+      toast.error('Product is already in wishlist');
     }
   };
 
   const removeFromWishlist = (productId) => {
     setWishlist(wishlist.filter((item) => item.id !== productId));
+    toast.error('Product removed from wishlist');
   };
 
   return (

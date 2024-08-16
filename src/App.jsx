@@ -14,11 +14,11 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
-      <div className="container mx-auto p-6">
-        <header>
-          <Navbar />
-        </header>
-        <main>
+      <div className="container flex flex-col min-h-screen">
+        <header className="flex-shrink-0">
+                <Navbar />
+              </header>
+                <main className="flex-grow">
           <Outlet />
         </main>
       </div>

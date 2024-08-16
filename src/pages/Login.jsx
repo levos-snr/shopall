@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -9,28 +9,40 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = formData;
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    setLoading(true);
 
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
+    try {
+      // Fetch users from the API
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/users");
+      const users = await response.json();
 
-    if (user) {
-      sessionStorage.setItem("currentUser", JSON.stringify(user));
-      toast.success("Login successful!");
-      navigate("/");
-      window.location.reload(); 
-    } else {
-      toast.error("Invalid username or password. Please try again.");
+      // Find user with matching credentials
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      );
+
+      if (user) {
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
+        toast.success("Login successful!");
+        navigate("/");
+      } else {
+        toast.error("Invalid username or password. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      toast.error("An error occurred while logging in. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,10 +57,7 @@ const Login = () => {
         </p>
         <form className="mt-4" onSubmit={handleOnSubmit}>
           <div className="flex flex-col mb-4">
-            <label
-              htmlFor="login"
-              className="text-base-content dark:text-base-content"
-            >
+            <label htmlFor="username" className="text-base-content dark:text-base-content">
               Username
             </label>
             <input
@@ -61,10 +70,7 @@ const Login = () => {
             />
           </div>
           <div className="flex flex-col mb-6">
-            <label
-              htmlFor="password"
-              className="text-base-content dark:text-base-content"
-            >
+            <label htmlFor="password" className="text-base-content dark:text-base-content">
               Password
             </label>
             <input
@@ -79,8 +85,9 @@ const Login = () => {
           <button
             type="submit"
             className="w-full py-2 px-4 bg-primary dark:bg-primary-focus text-white rounded-md hover:bg-primary-focus dark:hover:bg-primary-dark focus:outline-none focus:ring focus:ring-primary-light dark:focus:ring-primary-dark"
+            disabled={loading}
           >
-            Sign in
+            {loading ? "Loading..." : "Sign in"}
           </button>
         </form>
         <div className="flex flex-col items-center mt-4">
@@ -90,9 +97,6 @@ const Login = () => {
           <div className="flex space-x-4">
             <button className="btn btn-outline btn-primary">
               <FaGoogle className="mr-2" /> Google
-            </button>
-            <button className="btn btn-outline btn-secondary">
-              <FaGithub className="mr-2" /> GitHub
             </button>
           </div>
         </div>

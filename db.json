@@ -1,4 +1,14 @@
 {
+  "subscribe": [
+    {
+      "id": "1",
+      "email": "admin@gmail.com"
+    },
+    {
+      "id": "b9a8",
+      "email": "lewisodero@gmail.com"
+    }
+  ],
   "users": [
     {
       "id": "1723703559130",
@@ -69,6 +79,30 @@
           "quantity": 1
         }
       ]
+    },
+    {
+      "id": "1723765401072",
+      "username": "usert",
+      "email": "usert@gmail.com",
+      "password": "1234",
+      "role": "customer",
+      "cart": []
+    },
+    {
+      "id": "1723771150680",
+      "username": "useruser",
+      "email": "user27@gmail.com",
+      "password": "12345",
+      "role": "customer",
+      "cart": []
+    },
+    {
+      "id": "1723774461854",
+      "username": "supaadmin",
+      "email": "lewisodero28@gmail.com",
+      "password": "12345",
+      "role": "admin",
+      "cart": []
     }
   ],
   "orders": [
@@ -86,11 +120,11 @@
   ],
   "products": [
     {
-      "id": "5c7f",
-      "title": "Lipstick",
+      "id": "adf2",
+      "title": "LUKE",
       "category": "Clothing",
-      "price": "600",
-      "description": "For mouth",
+      "price": "7",
+      "description": "WE3E",
       "images": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
     }
   ],

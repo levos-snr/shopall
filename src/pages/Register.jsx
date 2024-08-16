@@ -52,7 +52,7 @@ const Register = () => {
     localStorage.setItem("users", JSON.stringify(users));
 
     try {
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,9 +164,7 @@ const Register = () => {
             <button className="btn btn-outline btn-primary">
               <FaGoogle className="mr-2" /> Google
             </button>
-            <button className="btn btn-outline btn-secondary">
-              <FaGithub className="mr-2" /> GitHub
-            </button>
+           
           </div>
         </div>
         <div className="flex flex-col items-center mt-6">
