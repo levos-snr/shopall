@@ -52,7 +52,7 @@ const Register = () => {
     localStorage.setItem("users", JSON.stringify(users));
 
     try {
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

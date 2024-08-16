@@ -24,14 +24,14 @@ const Categories = () => {
   const isAdmin = user && user.role === "admin";
 
   const fetchCategories = async () => {
-    const response = await fetch("http://localhost:3001/categories");
+    const response = await fetch("https://json-server-vercel-8mwp.vercel.app/categories");
     const data = await response.json();
     setCategories(data);
   };
 
   const handleAddCategory = async () => {
     // Add the new category to db.json via API
-    await fetch("http://localhost:3001/categories", {
+    await fetch("https://json-server-vercel-8mwp.vercel.app/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

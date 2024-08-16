@@ -15,13 +15,13 @@ const Customers = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const response = await fetch("http://localhost:3001/users");
+    const response = await fetch("https://json-server-vercel-8mwp.vercel.app/users");
     const data = await response.json();
     setUsers(data);
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:3001/users/${id}`, {
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${id}`, {
       method: "DELETE",
     });
     fetchUsers();
@@ -38,7 +38,7 @@ const Customers = () => {
     const formData = new FormData();
     Object.keys(editingUser).forEach(key => formData.append(key, editingUser[key]));
     
-    await fetch(`http://localhost:3001/users/${editingUser.id}`, {
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${editingUser.id}`, {
       method: "PATCH",
       body: formData,
     });
@@ -48,7 +48,7 @@ const Customers = () => {
   };
 
   const handleAdminToggle = async (user) => {
-    await fetch(`http://localhost:3001/users/${user.id}`, {
+    await fetch(`https://json-server-vercel-8mwp.vercel.app/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -29,7 +29,7 @@ const Footer = () => {
 
     try {
       
-      const response = await fetch('http://localhost:3001/subscribe', {
+      const response = await fetch('https://json-server-vercel-8mwp.vercel.app/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

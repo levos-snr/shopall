@@ -13,6 +13,8 @@ import Profile from "./pages/Profile";
 import OrderTrackingPage from "./pages/OrderTrackingPage";
 import WishlistPage from "./pages/WishlistPage";
 import ProductPage from "./pages/ProductPage";
+import SettingsPage from "./pages/SettingsPage";
+import NotificationPage from "./pages/NotificationPage";
 
 
 const routers = [
@@ -45,6 +47,14 @@ const routers = [
               path: "/orders",
               element: <OrderTrackingPage />,  
             },
+            {
+                    path: "/settings",
+                    element: <SettingsPage />,
+                  },
+                  {
+                    path: "/notifications",
+                    element: <NotificationPage />,
+                  },
       {
         path: "/cart",
         element: <Cart />,

@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
+import 'react-toastify/dist/ReactToastify.css';
+import { useNotifications } from '../context/NotificationContext'; // Import the context
+
+const formatDate = (dateString) => {
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) throw new Error('Invalid Date');
+    return date.toLocaleDateString(); // or any format you prefer
+  } catch {
+    return 'Invalid Date';
+  }
+};
 
 const OrderTrackingPage = () => {
   const [orders, setOrders] = useState([]);
   const [editingOrder, setEditingOrder] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { addNotification } = useNotifications();
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser")) ||{};
-    console.log("Current User:", currentUser);
-    setIsAdmin(currentUser.role === "admin");
-    console.log("Is Admin:", currentUser.role === "admin"); 
-
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     setOrders(savedOrders);
   }, []);
@@ -24,6 +30,7 @@ const OrderTrackingPage = () => {
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
     toast.success("Order marked as done!");
+    addNotification("Order marked as done!", "success");
   };
 
   const handleEditOrder = (orderId, updatedOrder) => {
@@ -33,13 +40,15 @@ const OrderTrackingPage = () => {
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
     toast.success("Order updated successfully!");
+    addNotification("Order updated successfully!", "success");
   };
 
   const handleCancelOrder = (orderId) => {
     const updatedOrders = orders.filter((order) => order.id !== orderId);
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
-    toast.success("Order canceled successfully!");
+    toast.error("Order canceled successfully!");
+    addNotification("Order canceled successfully!", "error");
   };
 
   const calculateProgress = (status, deliveryDate) => {
@@ -47,16 +56,16 @@ const OrderTrackingPage = () => {
 
     const deliveryDateObj = new Date(deliveryDate);
     const today = new Date();
-    const deliveryDuration = 5; // Days for delivery
+    const deliveryDuration = 5;
     const startDate = new Date(today);
     const endDate = new Date(today);
     endDate.setDate(startDate.getDate() + deliveryDuration);
 
-    if (today > deliveryDateObj) return 100; // Delivered
+    if (today > deliveryDateObj) return 100;
 
     const totalDuration = Math.ceil((deliveryDateObj - startDate) / (1000 * 60 * 60 * 24));
     const progress = 100 - Math.ceil((totalDuration / deliveryDuration) * 100);
-    return Math.max(0, Math.min(progress, 100)); // Clamp between 0% and 100%
+    return Math.max(0, Math.min(progress, 100));
   };
 
   return (
@@ -68,7 +77,7 @@ const OrderTrackingPage = () => {
           return (
             <div key={order.id} className="bg-white p-4 rounded shadow mb-4">
               <h4 className="text-xl font-semibold">Order #{order.id}</h4>
-              <p className="text-gray-600">Expected Delivery: {order.deliveryDate}</p>
+              <p className="text-gray-600">Expected Delivery: {formatDate(order.deliveryDate)}</p>
               {order.userDetails ? (
                 <p className="text-gray-600">
                   Customer: {order.userDetails.username} ({order.userDetails.email})
@@ -93,122 +102,58 @@ const OrderTrackingPage = () => {
               </ul>
 
               {/* Progress Bar */}
-              <h3 className="text-lg font-semibold mt-4">Order Progress</h3>
+              <h3 className="text-lg font-semibold mt-4">Order Status</h3>
               <div className="relative pt-1">
                 <div className="flex mb-2 items-center justify-between">
-                  <div>
-                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-blue-200 text-blue-600">
-                      {progress === 100 ? "Delivered" : "In Progress"}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs font-semibold inline-block text-blue-600">
-                      {progress}%
-                    </span>
-                  </div>
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded text-teal-600 bg-teal-200">
+                    {progress}% Progress
+                  </span>
                 </div>
-                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                <div className="flex h-2 overflow-hidden rounded bg-teal-200">
                   <div
                     style={{ width: `${progress}%` }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                    className="flex flex-col justify-center text-center text-xs text-white bg-teal-500"
                   ></div>
                 </div>
               </div>
 
-              <div className="text-gray-500 text-sm">
-                <p>Your order is {progress}% complete and on its way!</p>
-              </div>
-
               {/* Action Buttons */}
-              <div className="mt-4">
-                {isAdmin ? (
-                  <>
-                    <button
-                      onClick={() => handleMarkAsDone(order.id)}
-                      className="bg-green-500 text-white p-2 rounded mr-2"
-                    >
-                      Mark as Done
-                    </button>
-                    <button
-                      onClick={() => setEditingOrder(order)}
-                      className="bg-yellow-500 text-white p-2 rounded mr-2"
-                    >
-                      Edit Order
-                    </button>
-                    <button
-                      onClick={() => handleCancelOrder(order.id)}
-                      className="bg-red-500 text-white p-2 rounded"
-                    >
-                      Cancel Order
-                    </button>
-                  </>
-                ) : (
+              <div className="mt-4 ">
+                {order.status !== "Delivered" && (
                   <button
-                    onClick={() => handleCancelOrder(order.id)}
-                    className="bg-red-500 text-white p-2 rounded"
+                    onClick={() => handleMarkAsDone(order.id)}
+                    className="bg-green-500 text-white py-2 px-4 rounded"
                   >
-                    Cancel Order
+                    Mark as Done
                   </button>
                 )}
+                <button
+                  onClick={() => handleCancelOrder(order.id)}
+                  className="bg-red-500 text-white py-2 px-4 rounded m-2"
+                >
+                  Cancel Order
+                </button>
+                <button
+                  onClick={() => setEditingOrder(order)}
+                  className="bg-blue-500 text-white py-2 px-4 rounded mt-2"
+                >
+                  Edit Order
+                </button>
               </div>
             </div>
           );
         })
       ) : (
-        <p className="text-gray-500">No orders found.</p>
+        <p>No orders found.</p>
       )}
 
       {/* Edit Order Modal */}
-      {editingOrder && isAdmin && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Edit Order #{editingOrder.id}</h3>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const updatedOrder = {
-                  deliveryDate: e.target.deliveryDate.value,
-                  status: e.target.status.value,
-                };
-                handleEditOrder(editingOrder.id, updatedOrder);
-                setEditingOrder(null);
-              }}
-            >
-              <div className="mb-4">
-                <label htmlFor="deliveryDate" className="block text-gray-700 mb-2">Delivery Date:</label>
-                <input
-                  type="date"
-                  id="deliveryDate"
-                  name="deliveryDate"
-                  defaultValue={editingOrder.deliveryDate.split("T")[0]} // Adjust date format
-                  className="border border-gray-300 p-2 rounded w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="status" className="block text-gray-700 mb-2">Status:</label>
-                <select
-                  id="status"
-                  name="status"
-                  defaultValue={editingOrder.status}
-                  className="border border-gray-300 p-2 rounded w-full"
-                >
-                  <option value="In Progress">In Progress</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
-              </div>
-              <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-                Save Changes
-              </button>
-              <button
-                type="button"
-                onClick={() => setEditingOrder(null)}
-                className="bg-red-500 text-white p-2 rounded ml-2"
-              >
-                Cancel
-              </button>
-            </form>
-          </div>
-        </div>
+      {editingOrder && (
+        <EditOrderModal
+          order={editingOrder}
+          onClose={() => setEditingOrder(null)}
+          onSave={(updatedOrder) => handleEditOrder(editingOrder.id, updatedOrder)}
+        />
       )}
     </div>
   );

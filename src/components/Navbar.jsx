@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaBell, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; 
+import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useNotifications } from '../context/NotificationContext';
 import { toast } from 'react-toastify';
 import FetchProducts from '../lib/FetchProducts';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { cartCount } = useCart(); 
+  const { cartCount } = useCart();
   const { wishlist } = useWishlist();
+  const { notifications = [], unreadCount = 0 } = useNotifications() || {}; // Handle undefined context
   const [user, setUser] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false); 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchPopup, setShowSearchPopup] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { products, loading } = FetchProducts(); // Fetch products data
+  const { products } = FetchProducts(); // Fetch products data
 
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -113,8 +115,19 @@ const Navbar = () => {
 
       <div className="flex items-center space-x-4">
         <button><FaSearch className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
-        <button><FaBell className="text-gray-600 hover:text-gray-800 h-5 w-5" /></button>
-        
+
+        {/* Notification Button */}
+        <div className="relative">
+          <button onClick={() => navigate('/notifications')}>
+            <FaBell className="text-gray-600 hover:text-gray-800 h-5 w-5" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-2 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                {unreadCount}
+              </span>
+            )}
+          </button>
+        </div>
+
         <div>
           <NavLink to="/wishlist">
             <button className="relative">
@@ -168,16 +181,14 @@ const Navbar = () => {
                         <NavLink to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</NavLink>
                       </li>
                       <li onClick={handleOptionClick}>
-                        <NavLink to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</NavLink>
+                        <NavLink to="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</NavLink>
                       </li>
                       <li onClick={handleOptionClick}>
-                        <NavLink to="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</NavLink>
+                        <NavLink to="/wishlist" className="block px-4 py-2 hover:bg-gray-100">Wishlist</NavLink>
                       </li>
                     </>
                   )}
-                  <li onClick={handleLogout} className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100">
-                    Logout
-                  </li>
+                  <li onClick={handleLogout} className="block px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer">Logout</li>
                 </>
               ) : (
                 <>

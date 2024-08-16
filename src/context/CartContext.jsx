@@ -8,32 +8,46 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState(null);
 
+  // Load cart from localStorage on initial load
   useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart"));
+    if (savedCart) {
+      setCart(savedCart); // Load saved cart into state
+      console.log("Cart loaded from localStorage:", savedCart);
+    }
+
+    // Load user from session storage
     const loggedUser = JSON.parse(sessionStorage.getItem("users"));
     if (loggedUser) {
       setUser(loggedUser);
+      // Optionally fetch user-specific cart if available
       axios
-        .get(`http://localhost:3001/users/${loggedUser.id}`)
-        .then((response) => setCart(response.data.cart || []))
+        .get(`https://json-server-vercel-8mwp.vercel.app/users/${loggedUser.id}`)
+        .then((response) => {
+          const serverCart = response.data.cart || [];
+          if (serverCart.length > 0) {
+            setCart(serverCart); // Only overwrite local cart if server cart is not empty
+            console.log("Cart loaded from server:", serverCart);
+          }
+        })
         .catch((error) => console.error("Failed to fetch user data", error));
-    } else {
-      const savedCart = localStorage.getItem("cart");
-      if (savedCart) {
-        setCart(JSON.parse(savedCart));
-      }
     }
   }, []);
 
+  // Save cart to localStorage whenever it changes
   useEffect(() => {
+    if (cart.length > 0) {
+      console.log("Saving cart to localStorage:", cart); // Debugging log
+      localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
+    } else {
+      localStorage.removeItem("cart"); // Remove cart from localStorage if empty
+    }
+
     if (user) {
       axios
-        .patch(`http://localhost:3001/users/${user.id}`, { cart })
-        .then((response) =>
-          console.log("Cart saved successfully", response.data),
-        )
+        .patch(`https://json-server-vercel-8mwp.vercel.app/users/${user.id}`, { cart })
+        .then((response) => console.log("Cart saved to server successfully", response.data))
         .catch((error) => console.error("Failed to save cart", error));
-    } else {
-      localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart, user]);
 
@@ -42,31 +56,37 @@ export const CartProvider = ({ children }) => {
       const existingItem = prevCart.find((i) => i.id === item.id);
       if (existingItem) {
         return prevCart.map((i) =>
-          i.id === item.id ? { ...i, quantity: (i.quantity || 1) + 1 } : i,
+          i.id === item.id ? { ...i, quantity: (i.quantity || 1) + 1 } : i
         );
       }
       return [...prevCart, { ...item, quantity: 1 }];
     });
+    console.log("Item added to cart:", item);
   };
 
   const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCart((prevCart) => {
+      const newCart = prevCart.filter((item) => item.id !== id);
+      localStorage.setItem("cart", JSON.stringify(newCart)); // Sync localStorage with state
+      return newCart;
+    });
+    console.log("Item removed from cart:", id); // Debugging log
     toast.error("Item removed from cart");
   };
 
   const updateQuantity = (id, quantity) => {
     setCart((prevCart) =>
-      prevCart.map((item) => (item.id === id ? { ...item, quantity } : item)),
+      prevCart.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
   };
 
   const cartCount = cart.reduce(
     (total, item) => total + (item.quantity || 1),
-    0,
+    0
   );
   const totalAmount = cart.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
-    0,
+    0
   );
 
   return (
@@ -80,6 +100,7 @@ export const CartProvider = ({ children }) => {
         totalAmount,
         setCart,
         setUser,
+        user
       }}
     >
       {children}

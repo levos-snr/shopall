@@ -26,7 +26,7 @@ const AddProduct = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3001/products");
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/products");
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -36,7 +36,7 @@ const AddProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:3001/categories");
+      const response = await fetch("https://json-server-vercel-8mwp.vercel.app/categories");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -57,7 +57,7 @@ const AddProduct = () => {
 
     try {
       if (isEditing) {
-        await fetch(`http://localhost:3001/products/${editProductId}`, {
+        await fetch(`https://json-server-vercel-8mwp.vercel.app/products/${editProductId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const AddProduct = () => {
         setIsEditing(false);
         setEditProductId(null);
       } else {
-        await fetch("http://localhost:3001/products", {
+        await fetch("https://json-server-vercel-8mwp.vercel.app/products", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const AddProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:3001/products/${id}`, {
+      await fetch(`https://json-server-vercel-8mwp.vercel.app/products/${id}`, {
         method: "DELETE",
       });
       toast.success("Product deleted successfully!");
