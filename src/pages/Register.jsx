@@ -164,9 +164,7 @@ const Register = () => {
             <button className="btn btn-outline btn-primary">
               <FaGoogle className="mr-2" /> Google
             </button>
-            <button className="btn btn-outline btn-secondary">
-              <FaGithub className="mr-2" /> GitHub
-            </button>
+           
           </div>
         </div>
         <div className="flex flex-col items-center mt-6">

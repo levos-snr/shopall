@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loggedUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    const loggedUser = JSON.parse(sessionStorage.getItem("users"));
     if (loggedUser) {
       setUser(loggedUser);
       axios

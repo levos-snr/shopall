@@ -1,17 +1,66 @@
 import { Facebook, Instagram, Truck } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      toast.error('Email is required');
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.error('Email is invalid');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      
+      const response = await fetch('http://localhost:3001/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Subscription failed');
+      }
+
+      toast.success('Subscription successful!');
+      setEmail('');
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <footer className="bg-gray-900 text-white mt-16 w-full">
+    <footer className="bg-gray-900 text-white mt-16 w-full -z-10">
       {/* Full-width white background section */}
       <div className="bg-white w-full">
-        <div className="container mx-auto px-4 max-w-5xl py-16">
+        <div className="container mx-auto px-4 py-16 max-w-7xl">
           {/* First part of the footer */}
           <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <div className="flex flex-col items-center mb-8 md:mb-0 transition transform hover:scale-105">
-              <Truck className="h-10 w-10 mb-4 text-yellow-500" />
+            <div className="flex flex-col items-center mb-8 md:mb-0 transition-transform transform hover:scale-105">
+              <div className="flex justify-center items-center bg-gray-800 p-4 rounded-full mb-4">
+                <Truck className="h-10 w-12 mb-4 text-yellow-500" />
+              </div>
               <h4 className="font-bold text-xl text-gray-900">
                 FREE AND FAST DELIVERY
               </h4>
@@ -19,7 +68,7 @@ const Footer = () => {
                 Free delivery for all orders over Ksh. 140
               </p>
             </div>
-            <div className="flex flex-col items-center mb-8 md:mb-0 transition transform hover:scale-105">
+            <div className="flex flex-col items-center mb-8 md:mb-0 transition-transform transform hover:scale-105">
               <div className="flex justify-center items-center bg-gray-800 p-6 rounded-full mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +90,7 @@ const Footer = () => {
               </h4>
               <p className="text-gray-600">Friendly 24/7 customer support</p>
             </div>
-            <div className="flex flex-col items-center transition transform hover:scale-105">
+            <div className="flex flex-col items-center transition-transform transform hover:scale-105">
               <div className="flex justify-center items-center bg-gray-800 p-6 rounded-full mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,13 +116,13 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-gray-300 container mx-auto px-4 max-w-5xl p-4">
+      <div className="text-gray-300 container mx-auto px-4 py-8 max-w-7xl">
         {/* Middle Section with Address and Contact Info */}
         <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between">
           <div className="mb-8 md:mb-0">
-            <p className="text-white text-lg">Address:</p>
+            <p className="text-white text-lg font-semibold">Address:</p>
             <p className="mb-4">Nairobi, Kenya</p>
-            <p className="text-white text-lg mt-4">Contact:</p>
+            <p className="text-white text-lg font-semibold mt-4">Contact:</p>
             <p>+254 70505628</p>
             <p>test@gmail.com</p>
           </div>
@@ -98,29 +147,35 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Newsletter and Embedded Map (Optional Additions) */}
+        {/* Newsletter */}
         <div className="border-t border-gray-700 pt-8 mt-8">
           <h4 className="text-xl font-bold">Join Our Newsletter</h4>
-          <form className="mt-4">
+          <form onSubmit={handleSubmit} className="mt-4 flex flex-col md:flex-row">
             <input
               type="email"
               placeholder="Enter your email"
-              className="p-2 rounded-l-md focus:outline-none w-2/3"
+              value={email}
+              onChange={handleEmailChange}
+              className="p-2 rounded-l-md focus:outline-none flex-1"
             />
             <button
               type="submit"
-              className="bg-yellow-500 text-white p-2 rounded-r-md"
+              className="bg-yellow-500 text-white p-2 rounded-r-md mt-2 md:mt-0 md:ml-2"
+              disabled={isSubmitting}
             >
-              Subscribe
+              {isSubmitting ? 'Submitting...' : 'Subscribe'}
             </button>
           </form>
         </div>
 
         {/* Copyright Section */}
-        <div className="border-t border-gray-700 pt-8 mt-8  text-center text-gray-400">
+        <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
           <p>&copy; 2024 Shopall. All rights reserved.</p>
         </div>
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </footer>
   );
 };
