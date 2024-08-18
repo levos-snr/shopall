@@ -2,13 +2,13 @@ import { Button } from "./ui/button";
 import { HeartIcon, ShoppingCartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext"; // Import Wishlist context
+import { useWishlist } from "../context/WishlistContext"; 
 import {toast} from 'react-toastify';
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist(); // Use wishlist context
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   const handleNavigation = () => {
     navigate(`/product/${product.id}`, {

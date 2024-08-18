@@ -11,7 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { cartCount } = useCart();
   const { wishlist } = useWishlist();
-  const { notifications = [], unreadCount = 0 } = useNotifications() || {}; // Handle undefined context
+  const { notifications = [], unreadCount = 0 } = useNotifications() || {};
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,7 +19,7 @@ const Navbar = () => {
   const [showSearchPopup, setShowSearchPopup] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { products } = FetchProducts(); // Fetch products data
+  const { products } = FetchProducts(); 
 
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));

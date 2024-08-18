@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     if (savedCart) {
-      setCart(savedCart); // Load saved cart into state
+      setCart(savedCart);
       console.log("Cart loaded from localStorage:", savedCart);
     }
 
