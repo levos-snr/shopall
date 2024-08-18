@@ -1,46 +1,56 @@
-# React + Vite
+# SHOPALL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Inroduction
+Shopall is a SPA designed for better supermarket experiences. Fo shoppers, it allows them to create organized shopping lists and efficiently tracking their expenses. For supermarket managers it allows them to manage customers and the products being sold. 
 
-Currently, two official plugins are available:
+## Features
+1. **Add a New Product**
+Description: Users can add new products to the store's inventory.
+Details: The user specifies the product's name, price, and category. Once added, the product becomes available for purchase.
+2. **Add a New Category**
+Description: Users can create new product categories.
+Details: The user specifies the category's name, helping organize products within the store and making it easier for shoppers to find what they need.
+3. **Add a New Customer**
+Description: Users can add new customers to the customer database.
+Details: The user specifies the customer's name and email address. This feature helps keep track of customer information for marketing and order processing.
+4. **Place a New Order**
+Description: Users can create and place new orders.
+Details: The user specifies the customer making the order and adds products to the order with their respective quantities. The system calculates the total cost of the order.
+5. **View Order Details**
+Description: Users can view detailed order information.
+Details: The user enters an order ID or customer name to retrieve order details, including customer information, order date, and a list of products ordered with quantities.
+6. **Track order**
+User can track their order and see when they will get their delivery
+7. **Create a wishlist**
+From the products posted on the app, user can create a list of items they could possible buy that time or on a later date
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+1. Clone the repository
+   ```
+   git clone git@github.com:levos-snr/shopall.git
 
-## Why React project structure
+2. Install dependencies
+   ```
+   npm install
+3. Start JSON-server
+   ```
+   npm json-server --watch db.json --port 5000
+4. Run react app
+   ```
+   npm run dev
+5. Follow the link to open the app in the browser
 
-- Project structure shows the organization of code and files, and a clean, simple,
-  and decent project structure shows a clean written code, which helps to debug code,
-  and another developer can easily read it.
-- While deploying code on the server, it can recognize files easily, which is why
-  developers are implementing clean, simple, and decent project structures.
 
-## Best Practices for React Project Structure
 
-- It is best practice to create a project structure
-  for the React application, separate files according
-  to their work, and separate them in the correct directories.
-  For example, single components which can be used multiple places
-  should be present in the components folder, and also standardize the
-  naming conventions of the application so that it will be easy to verify
-  the logic and presence of any particular file or folder.
+## Technologies Used
+1. Frontend-React
+2. Backend-JSON-server
 
-- **Group by features or routes**:
-  Grouping by features or routes is the most common
-  way to structure a React project. This structure
-  is easy to navigate and understand.
+## Contribution
+Contributions are welcome! If you'd like to contribute, please fork the repository and make changes as you'd like. Submit a pull request or open an issue to discuss what you'd like to change.
 
-- **Group by file type**:
-  Grouping by file type is another way to structure a
-  React project.
-
-- **Group by layer**:
-  Grouping by layer is another way to structure a React project.
-  This structure is easy to navigate and understand.
-
-## Conclusion
-
-- Creating a well-organized folder structure is important for maintaining
-  a React project. It increases readability, maintainability, and
-  scalability of the application. By adopting a well structure, it will
-  be easy to manage code.
+__Authors__
+LEWIS ODERO
+JOY CHELANGAT
+LYNN KIBUTHU
+IYIOLA EBENEZER
