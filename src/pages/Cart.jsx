@@ -68,7 +68,7 @@ const Cart = () => {
             {cart.map((item) => (
               <li key={item.id} className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
                 <img
-                  src={item.images[0]} // Using the first image URL
+                  src={item.images[0]} 
                   alt={item.title}
                   className="w-full md:w-1/4 h-48 object-cover"
                 />
