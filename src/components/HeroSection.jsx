@@ -3,7 +3,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import FetchProducts from '../lib/FetchProducts';
 import { useCart } from '../context/CartContext';
-import { toast } from 'react-toastify';
+
+import { toast } from 'react-toastify'; // Import toast
+
 
 const HeroSection = () => {
   const { products, loading } = FetchProducts();

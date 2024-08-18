@@ -51,8 +51,7 @@ const Cart = () => {
     orders.push(order);
     localStorage.setItem('orders', JSON.stringify(orders));
 
-    setCart([]); // Clear the cart after purchase
-
+    setCart([]); 
     // Redirect to Order Tracking page
     window.location.href = '/orders';
   };
@@ -68,6 +67,7 @@ const Cart = () => {
             {cart.map((item) => (
               <li key={item.id} className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
                 <img
+
                   src={item.images[0]} 
                   alt={item.title}
                   className="w-full md:w-1/4 h-48 object-cover"
@@ -99,7 +99,6 @@ const Cart = () => {
             ))}
           </ul>
           <div className="mt-6 text-xl font-bold">Total: Ksh. {totalAmount}</div>
-
           {cart.length > 0 && (
             <Button onClick={handlePurchaseClick} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
               Purchase
