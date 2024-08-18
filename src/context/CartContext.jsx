@@ -12,6 +12,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     if (savedCart) {
+
       setCart(savedCart); // Load saved cart into state
       console.log("Cart loaded from localStorage:", savedCart);
     }
@@ -26,7 +27,7 @@ export const CartProvider = ({ children }) => {
         .then((response) => {
           const serverCart = response.data.cart || [];
           if (serverCart.length > 0) {
-            setCart(serverCart); // Only overwrite local cart if server cart is not empty
+            setCart(serverCart);
             console.log("Cart loaded from server:", serverCart);
           }
         })
@@ -37,10 +38,10 @@ export const CartProvider = ({ children }) => {
   // Save cart to localStorage whenever it changes
   useEffect(() => {
     if (cart.length > 0) {
-      console.log("Saving cart to localStorage:", cart); // Debugging log
-      localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
+      console.log("Saving cart to localStorage:", cart); 
+      localStorage.setItem("cart", JSON.stringify(cart)); 
     } else {
-      localStorage.removeItem("cart"); // Remove cart from localStorage if empty
+      localStorage.removeItem("cart"); 
     }
 
     if (user) {
@@ -67,10 +68,10 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (id) => {
     setCart((prevCart) => {
       const newCart = prevCart.filter((item) => item.id !== id);
-      localStorage.setItem("cart", JSON.stringify(newCart)); // Sync localStorage with state
+      localStorage.setItem("cart", JSON.stringify(newCart)); 
       return newCart;
     });
-    console.log("Item removed from cart:", id); // Debugging log
+    console.log("Item removed from cart:", id);
     toast.error("Item removed from cart");
   };
 

@@ -19,6 +19,7 @@ const Navbar = () => {
   const [showSearchPopup, setShowSearchPopup] = useState(false);
   const dropdownRef = useRef(null);
 
+
   const { products } = FetchProducts(); // Fetch products data
 
   useEffect(() => {
